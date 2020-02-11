@@ -1,0 +1,1038 @@
+<template>
+    <div class="overDetail rela">
+        <ul class="modulesTitle">
+            <li class="fl rela" v-for="(v, i) in resDetail" :key="i"
+                :class="+$route.query.select === v.id? 'act': ''" @click="toClickRequest(v.url, v.code, v.path)">
+                {{v.title}}
+                <i class="line abso" v-if="+$route.query.select === v.id"></i>
+            </li>
+        </ul>
+        <!-- region 放大2.0-->
+        <!--<div class="haveChars">-->
+        <!--<ul class="left fl">-->
+        <!--<li v-for="(v, i) in thesis.slice(0, 5)" :key="i" :class="+$route.query.chars === v.id? 'act': ''">-->
+        <!--<router-link :to="v.path">-->
+        <!--<p>{{v.title}}</p>-->
+        <!--</router-link>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--<div class="chars fl" ref="chars"></div>-->
+        <!--<ul class="left fr">-->
+        <!--<li v-for="(v, i) in thesis.slice(4, thesis.length)" :key="i"-->
+        <!--:class="+$route.query.chars === v.id? 'act': ''">-->
+        <!--<router-link :to="v.path">-->
+        <!--<p>{{v.title}}</p>-->
+        <!--</router-link>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!-- endregion 放大2.0-->
+        <ul class="modules_main">
+            <li v-for="(v, i) in thesis" :key="i" :class="+$route.query.chars === v.id? 'act': ''"
+                @click="toClickRequest(v.url, v.code, v.path)">
+                <p>{{v.title}}</p>
+            </li>
+        </ul>
+        <img src="../../static/images/icon-cate.png" alt="" class="setting abso" @click="$router.push('/funDetail?title=' + $route.query.title)">
+        <img src="../../static/images/eit.png" alt="" class="loginout abso" @click="$router.push('/')">
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'overDetail',
+        data() {
+            return {
+                moduleDetail: [
+                    {
+                        id: 0,
+                        title: "论文合作",
+                        imgs: require("../../static/images/iocn-nw.png"),
+                        url: "/ipad/qyzx/toNavigation",
+                        code: "201",
+                        path: "/overDetail?title=0&select=0"
+                    },
+                    {
+                        id: 1,
+                        title: "专利转移",
+                        imgs: require("../../static/images/iocn-zl.png"),
+                        url: "/ipad/qyzx/toNavigation",
+                        code: "202",
+                        path: "/overDetail?title=0&select=1"
+                    },
+                    {
+                        id: 2,
+                        title: "技术交易",
+                        imgs: require("../../static/images/iocn-jsjl.png"),
+                        url: "/ipad/qyzx/toNavigation",
+                        code: "203",
+                        path: "/overDetail?title=0&select=2"
+                    },
+                    {
+                        id: 3,
+                        title: "科创人才",
+                        imgs: require("../../static/images/iocn-ke.png"),
+                        url: "/ipad/qyzx/toNavigation",
+                        code: "204",
+                        path: "/overDetail?title=0&select=3"
+                    },
+                    {
+                        id: 4,
+                        title: "孵化器",
+                        imgs: require("../../static/images/iocn-fhq.png"),
+                        url: "/ipad/qyzx/toNavigation",
+                        code: "205",
+                        path: "/overDetail?title=0&select=4"
+                    },
+                    {
+                        id: 5,
+                        title: "科技金融",
+                        imgs: require("../../static/images/iocn-kjqr.png"),
+                        url: "/ipad/qyzx/toNavigation",
+                        code: "206",
+                        path: "/overDetail?title=0&select=5"
+                    },
+                    {
+                        id: 6,
+                        title: "国家创新指标",
+                        imgs: require("../../static/images/iocn-nw.png"),
+                        url: "/ipad/qjzs/toNavigation",
+                        code: "101",
+                        path: "/overDetail?title=1&select=6"
+                    },
+                    {
+                        id: 7,
+                        title: "山东省创新指标",
+                        imgs: require("../../static/images/iocn-zl.png"),
+                        url: "/ipad/qjzs/toNavigation",
+                        code: "102",
+                        path: "/overDetail?title=1&select=7"
+                    },
+                    {
+                        id: 8,
+                        title: "各区县创新指标",
+                        imgs: require("../../static/images/iocn-jsjl.png"),
+                        url: "/ipad/qjzs/toNavigation",
+                        code: "103",
+                        path: "/overDetail?title=1&select=8"
+                    },
+                    {
+                        id: 9,
+                        title: "中心城区",
+                        imgs: require("../../static/images/iocn-ke.png"),
+                        url: "/ipad/qjzs/toNavigation",
+                        code: "104",
+                        path: "/overDetail?title=1&select=9"
+                    },
+                    {
+                        id: 10,
+                        title: "楼宇设施",
+                        imgs: require("../../static/images/iocn-fhq.png"),
+                        url: "/ipad/qjzs/toNavigation",
+                        code: "105",
+                        path: "/overDetail?title=1&select=10"
+                    },
+                    {
+                        id: 11,
+                        title: "高新技术企业",
+                        imgs: require("../../static/images/iocn-nw.png"),
+                        url: "/ipad/xjdn/toNavigation",
+                        code: "301",
+                        path: "/overDetail?title=2&select=11"
+                    },
+                    {
+                        id: 12,
+                        title: "中小微企业",
+                        imgs: require("../../static/images/iocn-zl.png"),
+                        url: "/ipad/xjdn/toNavigation",
+                        code: "302",
+                        path: "/overDetail?title=2&select=12"
+                    },
+                    {
+                        id: 13,
+                        title: "瞪羚企业",
+                        imgs: require("../../static/images/iocn-jsjl.png"),
+                        url: "/ipad/xjdn/toNavigation",
+                        code: "303",
+                        path: "/overDetail?title=2&select=13"
+                    },
+                    {
+                        id: 14,
+                        title: "创新载体",
+                        imgs: require("../../static/images/iocn-ke.png"),
+                        url: "/ipad/xjdn/toNavigation",
+                        code: "304",
+                        path: "/overDetail?title=2&select=14"
+                    }
+                ],
+                resDetail: [],
+                moduless: [
+//                    region 论文合作各图表放大
+                    {
+                        id: 0,
+                        title: "有论文合作关系的主要城市",
+                        url: "/ipad/qyzx/lwhz",
+                        code: "2010",
+                        path: "/overDetail?title=0&select=0&chars=0"
+                    },
+                    {
+                        id: 1,
+                        title: "本市最活跃学术合作单位",
+                        url: "/ipad/qyzx/lwhz",
+                        code: "2011",
+                        path: "/overDetail?title=0&select=0&chars=1"
+                    },
+                    {
+                        id: 2,
+                        title: "合作论文的热门领域",
+                        url: "/ipad/qyzx/lwhz",
+                        code: "2012",
+                        path: "/overDetail?title=0&select=0&chars=2"
+                    },
+                    {
+                        id: 3,
+                        title: "论文合作的主要关键词",
+                        url: "/ipad/qyzx/lwhz",
+                        code: "2013",
+                        path: "/overDetail?title=0&select=0&chars=3"
+                    },
+                    {
+                        id: 4,
+                        title: "缩小",
+                        url: "/ipad/qyzx/lwhz",
+                        code: "0000",
+                        path: "/overDetail?title=0&select=0&chars=4"
+                    },
+//                    endregion 论文合作各图表放大
+//                    region 专利转移各图表放大
+                    {
+                        id: 5,
+                        title: "专利在城市间的转移情况",
+                        url: "/ipad/qyzx/zlzy",
+                        code: "2024",
+                        path: "/overDetail?title=0&select=1&chars=5"
+                    },
+                    {
+                        id: 6,
+                        title: "专利转移的主题",
+                        url: "/ipad/qyzx/zlzy",
+                        code: "2025",
+                        path: "/overDetail?title=0&select=1&chars=6"
+                    },
+                    {
+                        id: 7,
+                        title: "专利转移的热门领域",
+                        url: "/ipad/qyzx/zlzy",
+                        code: "2026",
+                        path: "/overDetail?title=0&select=1&chars=7"
+                    },
+                    {
+                        id: 8,
+                        title: "专利转移的IPC分类统计",
+                        url: "/ipad/qyzx/zlzy",
+                        code: "2027",
+                        path: "/overDetail?title=0&select=1&chars=8"
+                    },
+                    {
+                        id: 9,
+                        title: "缩小",
+                        url: "/ipad/qyzx/zlzy",
+                        code: "0000",
+                        path: "/overDetail?title=0&select=1&chars=9"
+                    },
+//                    endregion 专利转移各图表放大
+//                    region 技术交易各图表放大
+                    {
+                        id: 10,
+                        title: "技术交易额与项目数量",
+                        url: "/ipad/qyzx/jsjy",
+                        code: "2038",
+                        path: "/overDetail?title=0&select=2&chars=10"
+                    },
+                    {
+                        id: 11,
+                        title: "主要卖方和买方类型",
+                        url: "/ipad/qyzx/jsjy",
+                        code: "2039",
+                        path: "/overDetail?title=0&select=2&chars=11"
+                    },
+                    {
+                        id: 12,
+                        title: "济南市和区县技术交易排名",
+                        url: "/ipad/qyzx/jsjy",
+                        code: "20310",
+                        path: "/overDetail?title=0&select=2&chars=12"
+                    },
+                    {
+                        id: 13,
+                        title: "济南购买技术成果的主要城市",
+                        url: "/ipad/qyzx/jsjy",
+                        code: "20311",
+                        path: "/overDetail?title=0&select=2&chars=13"
+                    },
+                    {
+                        id: 14,
+                        title: "济南向省外输出的主要城市",
+                        url: "/ipad/qyzx/jsjy",
+                        code: "20312",
+                        path: "/overDetail?title=0&select=2&chars=14"
+                    },
+                    {
+                        id: 15,
+                        title: "济南向省内输出的主要城市",
+                        url: "/ipad/qyzx/jsjy",
+                        code: "20313",
+                        path: "/overDetail?title=0&select=2&chars=15"
+                    },
+                    {
+                        id: 16,
+                        title: "缩小",
+                        url: "/ipad/qyzx/jsjy",
+                        code: "0000",
+                        path: "/overDetail?title=0&select=2&chars=16"
+                    },
+//                    endregion 技术交易各图表放大
+//                    region 科创人才各图表放大
+                    {
+                        id: 17,
+                        title: "科创人才所属机构",
+                        url: "/ipad/qyzx/kcrc",
+                        code: "20414",
+                        path: "/overDetail?title=0&select=3&chars=17"
+                    },
+                    {
+                        id: 18,
+                        title: "吸纳的人才类型",
+                        url: "/ipad/qyzx/kcrc",
+                        code: "20415",
+                        path: "/overDetail?title=0&select=3&chars=18"
+                    },
+                    {
+                        id: 19,
+                        title: "科创人才研究领域分布",
+                        url: "/ipad/qyzx/kcrc",
+                        code: "20416",
+                        path: "/overDetail?title=0&select=3&chars=19"
+                    },
+                    {
+                        id: 20,
+                        title: "人才转移情况",
+                        url: "/ipad/qyzx/kcrc",
+                        code: "20417",
+                        path: "/overDetail?title=0&select=3&chars=20"
+                    },
+                    {
+                        id: 21,
+                        title: "缩小",
+                        url: "/ipad/qyzx/kcrc",
+                        code: "0000",
+                        path: "/overDetail?title=0&select=3&chars=21"
+                    },
+//                    endregion 科创人才各图表放大
+//                    region 孵化器各图表放大
+                    {
+                        id: 22,
+                        title: "孵化器的在孵企业和毕业企业",
+                        url: "/ipad/qyzx/fhq",
+                        code: "20518",
+                        path: "/overDetail?title=0&select=4&chars=22"
+                    },
+                    {
+                        id: 23,
+                        title: "孵化器吸纳应届大学生人数",
+                        url: "/ipad/qyzx/fhq",
+                        code: "20519",
+                        path: "/overDetail?title=0&select=4&chars=23"
+                    },
+                    {
+                        id: 24,
+                        title: "孵化器获得投资情况",
+                        url: "/ipad/qyzx/fhq",
+                        code: "20520",
+                        path: "/overDetail?title=0&select=4&chars=24"
+                    },
+                    {
+                        id: 25,
+                        title: "海外孵化器",
+                        url: "/ipad/qyzx/fhq",
+                        code: "20521",
+                        path: "/overDetail?title=0&select=4&chars=25"
+                    },
+                    {
+                        id: 26,
+                        title: "缩小",
+                        url: "/ipad/qyzx/fhq",
+                        code: "0000",
+                        path: "/overDetail?title=0&select=4&chars=26"
+                    },
+//                    endregion 孵化器各图表放大
+//                    region 科技金融各图表放大
+                    {
+                        id: 27,
+                        title: "历年的投资家金额",
+                        url: "/ipad/qyzx/kjjr",
+                        code: "20622",
+                        path: "/overDetail?title=0&select=5&chars=27"
+                    },
+                    {
+                        id: 28,
+                        title: "地区的投资企业数量和金额",
+                        url: "/ipad/qyzx/kjjr",
+                        code: "20623",
+                        path: "/overDetail?title=0&select=5&chars=28"
+                    },
+                    {
+                        id: 29,
+                        title: "投资行业分布",
+                        url: "/ipad/qyzx/kjjr",
+                        code: "20624",
+                        path: "/overDetail?title=0&select=5&chars=29"
+                    },
+                    {
+                        id: 30,
+                        title: "各类融资方式的比较",
+                        url: "/ipad/qyzx/kjjr",
+                        code: "20625",
+                        path: "/overDetail?title=0&select=5&chars=30"
+                    },
+                    {
+                        id: 31,
+                        title: "缩小",
+                        url: "/ipad/qyzx/kjjr",
+                        code: "0000",
+                        path: "/overDetail?title=0&select=5&chars=31"
+                    },
+//                    endregion 科技金融各图表放大
+
+//                    region 国家创新指标各图表放大
+                    {
+                        id: 32,
+                        title: "R&B人力投入增长率",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "1010",
+                        path: "/overDetail?title=1&select=6&chars=32"
+                    },
+                    {
+                        id: 33,
+                        title: "高新区内企业营业收入增长率",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "1011",
+                        path: "/overDetail?title=1&select=6&chars=33"
+                    },
+                    {
+                        id: 34,
+                        title: "城市创新画像",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "1012",
+                        path: "/overDetail?title=1&select=6&chars=34"
+                    },
+                    {
+                        id: 35,
+                        title: "城市评分变化",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "1013",
+                        path: "/overDetail?title=1&select=6&chars=35"
+                    },
+                    {
+                        id: 36,
+                        title: "基础与产出的对比",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "1014",
+                        path: "/overDetail?title=1&select=6&chars=36"
+                    },
+                    {
+                        id: 37,
+                        title: "基础与绩效的对比",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "1015",
+                        path: "/overDetail?title=1&select=6&chars=37"
+                    },
+                    {
+                        id: 38,
+                        title: "投入与产出的对比",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "1016",
+                        path: "/overDetail?title=1&select=6&chars=38"
+                    },
+                    {
+                        id: 39,
+                        title: "投入与绩效的对比",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "1017",
+                        path: "/overDetail?title=1&select=6&chars=39"
+                    },
+                    {
+                        id: 40,
+                        title: "缩小",
+                        url: "/ipad/qjzs/gjcxzb",
+                        code: "0000",
+                        path: "/overDetail?title=1&select=6&chars=40"
+                    },
+//                    endregion 国家创新指标各图表放大
+//                    region 山东省创新指标各图表放大
+                    {
+                        id: 41,
+                        title: "省内各地区新经济占比及目标",
+                        url: "/ipad/qjzs/sdscxzb",
+                        code: "1028",
+                        path: "/overDetail?title=1&select=7&chars=41"
+                    },
+                    {
+                        id: 42,
+                        title: "省内各地区劳动生产率及目标",
+                        url: "/ipad/qjzs/sdscxzb",
+                        code: "1029",
+                        path: "/overDetail?title=1&select=7&chars=42"
+                    },
+                    {
+                        id: 43,
+                        title: "省内各地区信息化融合指数及目标",
+                        url: "/ipad/qjzs/sdscxzb",
+                        code: "10210",
+                        path: "/overDetail?title=1&select=7&chars=43"
+                    },
+                    {
+                        id: 44,
+                        title: "省内各地区新兴产业占GDP比重",
+                        url: "/ipad/qjzs/sdscxzb",
+                        code: "10211",
+                        path: "/overDetail?title=1&select=7&chars=44"
+                    },
+                    {
+                        id: 45,
+                        title: "省内各地区中小微企业数量",
+                        url: "/ipad/qjzs/sdscxzb",
+                        code: "10212",
+                        path: "/overDetail?title=1&select=7&chars=45"
+                    },
+                    {
+                        id: 46,
+                        title: "省内各地区上市企业数量比较",
+                        url: "/ipad/qjzs/sdscxzb",
+                        code: "10213",
+                        path: "/overDetail?title=1&select=7&chars=46"
+                    },
+                    {
+                        id: 47,
+                        title: "缩小",
+                        url: "/ipad/qjzs/sdscxzb",
+                        code: "0000",
+                        path: "/overDetail?title=1&select=7&chars=47"
+                    },
+//                    endregion 山东省创新指标各图表放大
+//                    region 各区县创新指标各图表放大
+                    {
+                        id: 48,
+                        title: "各地区县高新技术产业产值",
+                        url: "/ipad/qjzs/gqxcxzb",
+                        code: "10314",
+                        path: "/overDetail?title=1&select=8&chars=48"
+                    },
+                    {
+                        id: 49,
+                        title: "各区县高新产值增长率",
+                        url: "/ipad/qjzs/gqxcxzb",
+                        code: "10315",
+                        path: "/overDetail?title=1&select=8&chars=49"
+                    },
+                    {
+                        id: 50,
+                        title: "各地区技术合同交易额比较",
+                        url: "/ipad/qjzs/gqxcxzb",
+                        code: "10316",
+                        path: "/overDetail?title=1&select=8&chars=50"
+                    },
+                    {
+                        id: 51,
+                        title: "全市发明专利授权数量及各区占比",
+                        url: "/ipad/qjzs/gqxcxzb",
+                        code: "10317",
+                        path: "/overDetail?title=1&select=8&chars=51"
+                    },
+                    {
+                        id: 52,
+                        title: "各区县高新技术产值排名变化",
+                        url: "/ipad/qjzs/gqxcxzb",
+                        code: "10318",
+                        path: "/overDetail?title=1&select=8&chars=52"
+                    },
+                    {
+                        id: 53,
+                        title: "缩小",
+                        url: "/ipad/qjzs/gqxcxzb",
+                        code: "0000",
+                        path: "/overDetail?title=1&select=8&chars=53"
+                    },
+//                    endregion 各区县创新指标各图表放大
+//                    region 中心城区各图表放大
+                    {
+                        id: 54,
+                        title: "本期累计",
+                        url: "/ipad/qjzs/zxcq",
+                        code: "10419",
+                        path: "/overDetail?title=1&select=9&chars=54"
+                    },
+                    {
+                        id: 55,
+                        title: "本期累计排名",
+                        url: "/ipad/qjzs/zxcq",
+                        code: "10420",
+                        path: "/overDetail?title=1&select=9&chars=55"
+                    },
+                    {
+                        id: 56,
+                        title: "增长率",
+                        url: "/ipad/qjzs/zxcq",
+                        code: "10421",
+                        path: "/overDetail?title=1&select=9&chars=56"
+                    },
+                    {
+                        id: 57,
+                        title: "增长率排名",
+                        url: "/ipad/qjzs/zxcq",
+                        code: "10422",
+                        path: "/overDetail?title=1&select=9&chars=57"
+                    },
+                    {
+                        id: 58,
+                        title: "缩小",
+                        url: "/ipad/qjzs/zxcq",
+                        code: "0000",
+                        path: "/overDetail?title=1&select=9&chars=58"
+                    },
+//                    endregion 中心城区各图表放大
+//                    region 楼宇设施各图表放大
+                    {
+                        id: 59,
+                        title: "纳税最多的楼宇",
+                        url: "/ipad/qjzs/lyss",
+                        code: "10523",
+                        path: "/overDetail?title=1&select=10&chars=59"
+                    },
+                    {
+                        id: 60,
+                        title: "企业入驻最多的楼宇",
+                        url: "/ipad/qjzs/lyss",
+                        code: "10524",
+                        path: "/overDetail?title=1&select=10&chars=60"
+                    },
+                    {
+                        id: 61,
+                        title: "缩小",
+                        url: "/ipad/qjzs/lyss",
+                        code: "0000",
+                        path: "/overDetail?title=1&select=10&chars=61"
+                    },
+//                    endregion 楼宇设施各图表放大
+
+//                    region 高新技术企业各图表放大
+                    {
+                        id: 62,
+                        title: "济南高企数量与上市情况",
+                        url: "/ipad/xjdn/gxjsqy",
+                        code: "3010",
+                        path: "/overDetail?title=2&select=11&chars=62"
+                    },
+                    {
+                        id: 63,
+                        title: "济南高企注册资本变化趋势",
+                        url: "/ipad/xjdn/gxjsqy",
+                        code: "3011",
+                        path: "/overDetail?title=2&select=11&chars=63"
+                    },
+                    {
+                        id: 64,
+                        title: "济南高企授权专利数量",
+                        url: "/ipad/xjdn/gxjsqy",
+                        code: "3012",
+                        path: "/overDetail?title=2&select=11&chars=64"
+                    },
+                    {
+                        id: 65,
+                        title: "国民经济行业分布",
+                        url: "/ipad/xjdn/gxjsqy",
+                        code: "3013",
+                        path: "/overDetail?title=2&select=11&chars=65"
+                    },
+                    {
+                        id: 66,
+                        title: "战略新兴产业分布",
+                        url: "/ipad/xjdn/gxjsqy",
+                        code: "3014",
+                        path: "/overDetail?title=2&select=11&chars=66"
+                    },
+                    {
+                        id: 67,
+                        title: "缩小",
+                        url: "/ipad/xjdn/gxjsqy",
+                        code: "0000",
+                        path: "/overDetail?title=2&select=11&chars=67"
+                    },
+//                    endregion 高新技术企业各图表放大
+//                    region 中小微企业各图表放大
+                    {
+                        id: 68,
+                        title: "大中小微企业成交额对比",
+                        url: "/ipad/xjdn/zxwqy",
+                        code: "3025",
+                        path: "/overDetail?title=2&select=12&chars=68"
+                    },
+                    {
+                        id: 69,
+                        title: "中小微企业库企业数量变化",
+                        url: "/ipad/xjdn/zxwqy",
+                        code: "3026",
+                        path: "/overDetail?title=2&select=12&chars=69"
+                    },
+                    {
+                        id: 70,
+                        title: "大中小微企业合同数量对比",
+                        url: "/ipad/xjdn/zxwqy",
+                        code: "3027",
+                        path: "/overDetail?title=2&select=12&chars=70"
+                    },
+                    {
+                        id: 71,
+                        title: "济南市中小微企业分布",
+                        url: "/ipad/xjdn/zxwqy",
+                        code: "3028",
+                        path: "/overDetail?title=2&select=12&chars=71"
+                    },
+                    {
+                        id: 72,
+                        title: "省内中小微企业库地区分布",
+                        url: "/ipad/xjdn/zxwqy",
+                        code: "3029",
+                        path: "/overDetail?title=2&select=12&chars=72"
+                    },
+                    {
+                        id: 73,
+                        title: "缩小",
+                        url: "/ipad/xjdn/zxwqy",
+                        code: "0000",
+                        path: "/overDetail?title=2&select=12&chars=73"
+                    },
+//                    endregion 中小微企业各图表放大
+//                    region 瞪羚企业各图表放大
+                    {
+                        id: 74,
+                        title: "历年新注册的瞪羚企业数量",
+                        url: "/ipad/xjdn/dlqy",
+                        code: "30310",
+                        path: "/overDetail?title=2&select=13&chars=74"
+                    },
+                    {
+                        id: 75,
+                        title: "企业注册资本与数量关系",
+                        url: "/ipad/xjdn/dlqy",
+                        code: "30311",
+                        path: "/overDetail?title=2&select=13&chars=75"
+                    },
+                    {
+                        id: 76,
+                        title: "瞪羚企业地区分布",
+                        url: "/ipad/xjdn/dlqy",
+                        code: "30312",
+                        path: "/overDetail?title=2&select=13&chars=76"
+                    },
+                    {
+                        id: 77,
+                        title: "瞪羚企业新技术产业分类",
+                        url: "/ipad/xjdn/dlqy",
+                        code: "30313",
+                        path: "/overDetail?title=2&select=13&chars=77"
+                    },
+                    {
+                        id: 78,
+                        title: "瞪羚企业行业分布",
+                        url: "/ipad/xjdn/dlqy",
+                        code: "30314",
+                        path: "/overDetail?title=2&select=13&chars=78"
+                    },
+                    {
+                        id: 79,
+                        title: "瞪羚企业经营领域",
+                        url: "/ipad/xjdn/dlqy",
+                        code: "30315",
+                        path: "/overDetail?title=2&select=13&chars=79"
+                    },
+                    {
+                        id: 80,
+                        title: "缩小",
+                        url: "/ipad/xjdn/dlqy",
+                        code: "0000",
+                        path: "/overDetail?title=2&select=13&chars=80"
+                    },
+//                    endregion 瞪羚企业各图表放大
+//                    region 创新载体各图表放大
+                    {
+                        id: 81,
+                        title: "重点实验室示范中心占比",
+                        url: "/ipad/xjdn/cxzt",
+                        code: "30416",
+                        path: "/overDetail?title=2&select=14&chars=81"
+                    },
+                    {
+                        id: 82,
+                        title: "重点实验室城市分布",
+                        url: "/ipad/xjdn/cxzt",
+                        code: "30417",
+                        path: "/overDetail?title=2&select=14&chars=82"
+                    },
+                    {
+                        id: 83,
+                        title: "重点实验室主管部门分布",
+                        url: "/ipad/xjdn/cxzt",
+                        code: "30418",
+                        path: "/overDetail?title=2&select=14&chars=83"
+                    },
+                    {
+                        id: 84,
+                        title: "重点实验室领域分布",
+                        url: "/ipad/xjdn/cxzt",
+                        code: "30419",
+                        path: "/overDetail?title=2&select=14&chars=84"
+                    },
+                    {
+                        id: 85,
+                        title: "重点实验室十大产业分布",
+                        url: "/ipad/xjdn/cxzt",
+                        code: "30420",
+                        path: "/overDetail?title=2&select=14&chars=85"
+                    },
+                    {
+                        id: 86,
+                        title: "缩小",
+                        url: "/ipad/xjdn/cxzt",
+                        code: "0000",
+                        path: "/overDetail?title=2&select=14&chars=86"
+                    },
+//                    endregion 创新载体各图表放大
+                ],
+                thesis: []
+            }
+        },
+        created() {
+            this.navDetail(+this.$route.query.title, +this.$route.query.select)
+        },
+        watch: {
+            $route(to, from) {
+                this.navDetail(+to.query.title, +to.query.select)
+            }
+        },
+        mounted() {
+            // region 绘制图表 - 放大2.0。
+//            this.$echarts.init(this.$refs.chars).setOption({
+//                title : {
+//                    text: '人力投入增长率',
+//                    x:'center',
+//                    y: '8%',
+//                    textStyle:{
+//                        //文字颜色
+//                        color:'#82c6fb',
+//                        fontWeight:'bold',
+//                        fontSize: 22
+//                    }
+//                },
+//                tooltip : {
+//                    trigger: 'item',
+//                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+//                },
+//                series : [
+//                    {
+//                        name: '访问来源',
+//                        type: 'pie',
+//                        radius : '55%',
+//                        center: ['50%', '55%'],
+//                        data:[
+//                            {value:400, name:'济南'},
+//                            {value:400, name:'青岛'},
+//                            {value:260, name:'威海'},
+//                            {value:180, name:'烟台'},
+//                            {value:180, name:'其他'},
+//                            {value:180, name:'德州'},
+//                            {value:1000, name:'距离目标'}
+//                        ],
+//                        itemStyle: {
+//                            emphasis: {
+//                                shadowBlur: 10,
+//                                shadowOffsetX: 0,
+//                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+//                            }
+//                        }
+//                    }
+//                ],
+//                color: ['#7cafb2', '#686059', '#a68d89', '#99b8c6', '#c3aeb8', '#a3939e','#6a85b2']
+//            });
+            // endregion 绘制图表。
+            this.navDetail(+this.$route.query.title, +this.$route.query.select)
+        },
+        methods: {
+            navDetail(title, select) {
+                switch (title) {
+                    case 0:
+                        this.resDetail = this.moduleDetail.slice(0, 6)
+                        switch (select) {
+                            case 0:
+                                this.thesis = this.moduless.slice(0, 5)
+                                break;
+                            case 1:
+                                this.thesis = this.moduless.slice(5, 10)
+                                break;
+                            case 2:
+                                this.thesis = this.moduless.slice(10, 17)
+                                break;
+                            case 3:
+                                this.thesis = this.moduless.slice(17, 22)
+                                break;
+                            case 4:
+                                this.thesis = this.moduless.slice(22, 27)
+                                break;
+                            case 5:
+                                this.thesis = this.moduless.slice(27, 32)
+                                break;
+                        }
+                        break;
+                    case 1:
+                        this.resDetail = this.moduleDetail.slice(6, 11)
+                        switch (select) {
+                            case 6:
+                                this.thesis = this.moduless.slice(32, 41)
+                                break;
+                            case 7:
+                                this.thesis = this.moduless.slice(41, 48)
+                                break;
+                            case 8:
+                                this.thesis = this.moduless.slice(48, 54)
+                                break;
+                            case 9:
+                                this.thesis = this.moduless.slice(54, 59)
+                                break;
+                            case 10:
+                                this.thesis = this.moduless.slice(59, 62)
+                                break;
+                        }
+                        break;
+                    case 2:
+                        this.resDetail = this.moduleDetail.slice(11, 16)
+                        switch (select) {
+                            case 11:
+                                this.thesis = this.moduless.slice(62, 68)
+                                break;
+                            case 12:
+                                this.thesis = this.moduless.slice(68, 74)
+                                break;
+                            case 13:
+                                this.thesis = this.moduless.slice(74, 81)
+                                break;
+                            case 14:
+                                this.thesis = this.moduless.slice(81, 87)
+                                break;
+                        }
+                        break;
+                    default:
+                        this.$router.push('/')
+                        break;
+                }
+            },
+        }
+    }
+</script>
+
+<style lang="stylus" scope>
+    .overDetail
+        width 100vw
+        height 100vh
+        background url("../../static/images/bg-3.png") no-repeat center
+        background-size 100%
+        padding-top 6.5vw
+        > img
+            width 10vw
+            height 10vw
+            bottom 4vw
+        > img.setting
+            right 4vw
+        > img.loginout
+            left 4vw
+        .modulesTitle
+            width 100%
+            height 4.1vw
+            padding 0 13vw
+            display flex
+            justify-content space-between
+            li
+                font-size 2vw
+                color #fff
+                .line
+                    width 3.5vw
+                    height .6vw
+                    border-radius 3vw
+                    background: #82c5fa
+                    display inline-block
+                    bottom 0
+                    left 50%
+                    transform translateX(-50%)
+            li.act
+                color: #82c5fa
+
+        .modules_main
+            width 100%
+            display flex
+            justify-content flex-start
+            flex-wrap wrap
+            padding 6.5vw 5vw 0 5vw
+            li
+                width calc(100% / 3)
+                p
+                    width 95%
+                    height 7.8vw
+                    line-height 7.8vw
+                    color: #3c6cc6
+                    font-size 1.6vw
+                    text-align center
+                    background url("../../static/images/iocn-re4.png") no-repeat center
+                    background-size 100% 7.8vw
+                    margin 4.5vw auto 0 auto
+            li.act
+                p
+                    color: #7cbcef
+                    background url("../../static/images/iocn-re44.png") no-repeat center
+                    background-size 100% 7vw
+            li:nth-last-child(1)
+                > img
+                    width 60%
+        .haveChars
+            width 100%
+            padding 7vw 5vw 0 5vw
+            .chars
+                width calc(100% - 44vw)
+                height 37vw
+                background url("../../static/images/iocn-looer.png") no-repeat center
+                background-size 100% 37vw
+                margin-left: 5vw
+            ul.left
+                width 17vw
+                height 38vw
+                li
+                    width 100%
+                    margin-bottom: 2vw
+                    a
+                        display block
+                        p
+                            height 6vw
+                            line-height 6vw
+                            color: #fff
+                            font-size 1.6vw
+                            text-align center
+                            background url("../../static/images/iocn-33tr.png") no-repeat center
+                            background-size 100% 6vw
+                li.act
+                    a
+                        p
+                            color: #7bbbec
+                            background url("../../static/images/iocn-ewe.png") no-repeat center
+                            background-size 100% 5.8vw
+                li:nth-last-child(1)
+                    margin-bottom: 0
+
+</style>
